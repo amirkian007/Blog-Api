@@ -1,4 +1,10 @@
 # Blog-Api
-This is a CRUD System based on Rest Api..
+This is a Blog System based on Rest Api..
+
+## Details
 This system includes the following features:
-1-Use sanctum authentication
+- Use sanctum authentication
+- Create posts
+- Read Posts
+- Update Posts
+- Delete Posts
