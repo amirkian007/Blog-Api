@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -20,7 +21,11 @@ class PostController extends Controller
     {
     }
 
-    public function update()
+    public function update(UpdatePostRequest $request)
+    {
+    }
+
+    public function destroy($id)
     {
     }
 }
