@@ -26,6 +26,6 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('posts', [PostController::class, 'index']);
         Route::post('posts/{post}', [PostController::class, 'store']);
         Route::put('posts/{post}', [PostController::class, 'update']);
-        Route::get('posts/delete/{post}', [PostController::class, 'destroy']);
+        Route::get('posts/{post}', [PostController::class, 'destroy']);
     });
 });
