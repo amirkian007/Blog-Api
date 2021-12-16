@@ -51,7 +51,8 @@ class PostController extends Controller
         return response($response, 201);
     }
 
-    public function destroy($id)
+    public function destroy(Post $post)
     {
+        return $post->delete();
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\v1\AuthenticationController;
+use App\Http\Controllers\api\v1\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +21,11 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('login', [AuthenticationController::class, 'login']);
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('logout', [AuthenticationController::class, 'logout']);
+
+        // post routes
+        Route::get('posts', [PostController::class, 'index']);
+        Route::post('posts/{post}', [PostController::class, 'store']);
+        Route::put('posts/{post}', [PostController::class, 'update']);
+        Route::get('posts/delete/{post}', [PostController::class, 'destroy']);
     });
 });
