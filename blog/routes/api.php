@@ -23,10 +23,10 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('logout', [AuthenticationController::class, 'logout']);
 
         // post routes
-        Route::get('posts', [PostController::class, 'index']);
-        Route::post('post', [PostController::class, 'store']);
-        Route::get('posts/{post}', [PostController::class, 'show']);
-        Route::put('posts/{post}', [PostController::class, 'update']);
-        Route::delete('posts/{post}', [PostController::class, 'destroy']);
+        Route::get('posts', [PostController::class, 'index'])->name('post.index');
+        Route::post('post', [PostController::class, 'store'])->name('post.store');
+        Route::get('posts/{post}', [PostController::class, 'show'])->name('post.show');
+        Route::put('posts/{post}', [PostController::class, 'update'])->name('post.update');
+        Route::delete('posts/{post}', [PostController::class, 'destroy'])->name('post.delete');
     });
 });
