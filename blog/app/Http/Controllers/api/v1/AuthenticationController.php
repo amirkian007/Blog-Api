@@ -32,7 +32,7 @@ class AuthenticationController extends Controller
             return $this->error('User Not Found!', 401);
         }
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $request['email'])->first();
 
         $response = array(
             'user' => $user,
