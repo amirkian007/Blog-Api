@@ -17,10 +17,6 @@ class PostController extends Controller
         return response($posts, 201);
     }
 
-    public function show()
-    {
-    }
-
     public function store(StorePostRequest $request, Post $post)
     {
         $post->create([
@@ -34,6 +30,11 @@ class PostController extends Controller
         );
 
         return response($response, 201);
+    }
+
+    public function show(Post $post)
+    {
+        return response($post);
     }
 
     public function update(UpdatePostRequest $request, Post $post)
