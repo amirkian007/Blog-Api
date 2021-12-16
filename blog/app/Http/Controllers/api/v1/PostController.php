@@ -26,7 +26,7 @@ class PostController extends Controller
         $post->create([
             'title' => $request->title,
             'body' => $request->body,
-            'user_id' => Auth()->id,
+            'user_id' => Auth::user()->id,
         ]);
 
         $response = array(
@@ -41,7 +41,7 @@ class PostController extends Controller
         $post->update([
             'title' => $request->title,
             'body' => $request->body,
-            'user_id' => Auth()->id,
+            'user_id' => Auth::user()->id,
         ]);
 
         $response = array(
