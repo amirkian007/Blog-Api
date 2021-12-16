@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\api\v1;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\LoginRequest;
-use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use App\Http\Requests\LoginRequest;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Facade\FlareClient\Http\Response;
+use App\Http\Requests\RegisterRequest;
 
 class AuthenticationController extends Controller
 {
@@ -28,11 +30,14 @@ class AuthenticationController extends Controller
 
     public function login(LoginRequest $request)
     {
-        if (!Auth::attempt($request)) {
-            return $this->error('User Not Found!', 401);
-        }
 
-        $user = User::where('email', $request['email'])->first();
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user && !Hash::check($request['password'], $user->password)) {
+            return response([
+                'message' => 'Bad Request'
+            ], 401);
+        }
 
         $response = array(
             'user' => $user,
