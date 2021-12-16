@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Facade\FlareClient\Http\Response;
 use App\Http\Requests\RegisterRequest;
+use Illuminate\Http\Request;
 
 class AuthenticationController extends Controller
 {
@@ -33,7 +34,7 @@ class AuthenticationController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if (!$user && !Hash::check($request['password'], $user->password)) {
+        if (!$user && !Hash::check($request->password, $user->password)) {
             return response([
                 'message' => 'Bad Request'
             ], 401);
@@ -45,5 +46,14 @@ class AuthenticationController extends Controller
         );
 
         return response($response, 201);
+    }
+
+    public function logout(Request $request)
+    {
+        auth()->user()->tokens()->delete();
+
+        return [
+            "message" => "logout",
+        ];
     }
 }
