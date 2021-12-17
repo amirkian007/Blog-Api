@@ -2,6 +2,8 @@
 
 namespace Tests\Unit;
 
+use App\Models\Post;
+use App\Models\User;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
@@ -11,8 +13,10 @@ class UserTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+
+    public function test_guess_user_can_see_posts()
     {
-        $this->assertTrue(true);
+        $posts = Post::factory(2)->create();
+        $this->getJson(route('post.index'))->assertUnauthorized();
     }
 }
