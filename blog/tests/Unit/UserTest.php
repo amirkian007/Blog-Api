@@ -23,4 +23,13 @@ class UserTest extends TestCase
         $posts = Post::factory(2)->create();
         $this->getJson(route('post.index'))->assertUnauthorized();
     }
+
+    public function test_only_auth_user_can_create_post()
+    {
+        $user = User::factory()->create();
+        $post = Post::factory()->raw();
+        $response = $this->actingAs($user)->postJson(route('post.store'), $post);
+        $post['user_id'] = auth()->user()->id;
+        $this->assertDatabaseHas('posts',$post);
+    }
 }
