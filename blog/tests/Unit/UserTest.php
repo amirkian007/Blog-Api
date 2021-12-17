@@ -4,10 +4,14 @@ namespace Tests\Unit;
 
 use App\Models\Post;
 use App\Models\User;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 
 class UserTest extends TestCase
 {
+
+    use RefreshDatabase, WithFaker;
     /**
      * A basic unit test example.
      *
