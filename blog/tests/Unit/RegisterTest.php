@@ -27,5 +27,13 @@ class RegisterTest extends TestCase
         ]);
     }
 
+    public function test_register_email_validation()
+    {
+        $data = [
+            'email' => 'ysnbgn'
+        ];
+        $this->post(route('register'), $data)->assertSessionHasErrors(['email']);
+    }
+
 
 }
