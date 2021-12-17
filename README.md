@@ -8,4 +8,5 @@ This system includes the following features:
 - Read Posts
 - Update Posts
 - Delete Posts
+- Add Comment below Each Post
 - Testing
