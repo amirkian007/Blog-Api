@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 16, 2021 at 04:33 PM
+-- Generation Time: Dec 17, 2021 at 05:16 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.27
 
@@ -20,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `blog-api`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comments`
+--
+
+CREATE TABLE `comments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `body` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `post_id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`id`, `body`, `created_at`, `updated_at`, `post_id`, `user_id`) VALUES
+(1, 'First Comment', '2021-12-17 12:09:35', '2021-12-17 12:09:35', 1, 1),
+(2, 'Second Comment', '2021-12-17 12:11:41', '2021-12-17 12:11:41', 1, 1),
+(3, 'First Comment', '2021-12-17 12:14:46', '2021-12-17 12:14:46', 4, 1);
 
 -- --------------------------------------------------------
 
@@ -58,7 +82,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
 (4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(5, '2021_12_15_184406_create_posts_table', 1);
+(5, '2021_12_15_184406_create_posts_table', 1),
+(6, '2021_12_17_150019_create_comments_table', 2);
 
 -- --------------------------------------------------------
 
@@ -96,7 +121,8 @@ CREATE TABLE `personal_access_tokens` (
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `created_at`, `updated_at`) VALUES
 (1, 'App\\Models\\User', 1, 'tokens', 'af970820ca5ea94642ad811f7caa386dfb341210b0c8226363af8efb15efc54f', '[\"*\"]', NULL, '2021-12-16 10:08:26', '2021-12-16 10:08:26'),
-(2, 'App\\Models\\User', 1, 'tokens', '5e0cf96f2ab1c7952da4dbcf31615f8ef6fbc2de4f796b9a8f6b1f363093e534', '[\"*\"]', '2021-12-16 11:58:53', '2021-12-16 10:08:33', '2021-12-16 11:58:53');
+(2, 'App\\Models\\User', 1, 'tokens', '5e0cf96f2ab1c7952da4dbcf31615f8ef6fbc2de4f796b9a8f6b1f363093e534', '[\"*\"]', '2021-12-17 12:13:37', '2021-12-16 10:08:33', '2021-12-17 12:13:37'),
+(3, 'App\\Models\\User', 1, 'tokens', 'c6f57b6a6102d37a0480da1604da791fa79be62427af6911a13cb7cd16f71fa2', '[\"*\"]', '2021-12-17 12:22:09', '2021-12-17 12:07:47', '2021-12-17 12:22:09');
 
 -- --------------------------------------------------------
 
@@ -118,7 +144,9 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `title`, `body`, `created_at`, `updated_at`, `user_id`) VALUES
-(1, 'first post', 'this is just a test', '2021-12-16 10:08:54', '2021-12-16 10:08:54', 1);
+(1, 'first post', 'this is just a test', '2021-12-16 10:08:54', '2021-12-16 10:08:54', 1),
+(4, 'second post', 'this is body', '2021-12-17 12:13:34', '2021-12-17 12:13:34', 1),
+(5, 'second post', 'this is body', '2021-12-17 12:13:37', '2021-12-17 12:13:37', 1);
 
 -- --------------------------------------------------------
 
@@ -147,6 +175,14 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `comments_post_id_foreign` (`post_id`),
+  ADD KEY `comments_user_id_foreign` (`user_id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -194,6 +230,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -203,19 +245,19 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -226,6 +268,13 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `comments`
+--
+ALTER TABLE `comments`
+  ADD CONSTRAINT `comments_post_id_foreign` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `comments_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `posts`
