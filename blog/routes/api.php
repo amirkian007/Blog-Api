@@ -28,5 +28,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('posts/{post}', [PostController::class, 'show'])->name('post.show');
         Route::put('posts/{post}', [PostController::class, 'update'])->name('post.update');
         Route::delete('posts/{post}', [PostController::class, 'destroy'])->name('post.delete');
+
+        // comment routes
+        Route::post('posts/{post}/comment', [CommentController::class, 'store'])->name('comment.store');
     });
 });
