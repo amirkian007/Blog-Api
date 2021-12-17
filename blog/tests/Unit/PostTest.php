@@ -2,7 +2,9 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+use App\Models\Post;
+use App\Models\User;
+use Tests\TestCase;
 
 class PostTest extends TestCase
 {
@@ -11,8 +13,13 @@ class PostTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+    public function test_title_and_body_required_for_creating_post()
     {
-        $this->assertTrue(true);
+        $user = User::factory()->create();
+        $post = Post::factory()->raw(['body' => null]);
+        $response = $this->actingAs($user)->postJson(route('post.store'), $post);
+        $post['user_id'] = auth()->user()->id;
+        $this->assertDatabaseMissing('posts', $post);
+        $response->assertUnprocessable();
     }
 }
