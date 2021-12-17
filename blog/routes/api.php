@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\v1\AuthenticationController;
+use App\Http\Controllers\api\v1\CommentController;
 use App\Http\Controllers\api\v1\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
